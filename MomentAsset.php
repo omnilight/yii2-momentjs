@@ -10,9 +10,9 @@ use yii\web\AssetBundle;
  */
 class MomentAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/moment';
+    public $sourcePath = '@bower/moment/min';
 
     public $js = [
-        'moment.js'
+        'moment.min.js'
     ];
 } 
