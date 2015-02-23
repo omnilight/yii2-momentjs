@@ -1,7 +1,7 @@
 <?php
 
 namespace omnilight\assets;
-use kartik\base\AssetBundle;
+use yii\web\AssetBundle;
 use yii\web\View;
 
 
