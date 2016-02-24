@@ -1,6 +1,7 @@
 <?php
 
 namespace omnilight\assets;
+use Yii;
 use yii\web\AssetBundle;
 use yii\web\View;
 
@@ -19,7 +20,7 @@ class MomentLanguageAsset extends AssetBundle
     public function registerAssetFiles($view)
     {
         parent::registerAssetFiles($view);
-        $language = $this->language ? $this->language : \Yii::$app->language;
+        $language = strtolower($this->language ? $this->language : Yii::$app->language);
         $this->registerLanguage($language, $view);
     }
 
@@ -29,10 +30,20 @@ class MomentLanguageAsset extends AssetBundle
      */
     public function registerLanguage($language, $view)
     {
+        $sourcePath = Yii::getAlias($this->sourcePath);
+        $fallbackLanguage = substr($language, 0, 2);
+
+        $desiredFile = $sourcePath . DIRECTORY_SEPARATOR . "{$language}.js";
+        if (!is_file($desiredFile)) {
+            $desiredFile = $sourcePath . DIRECTORY_SEPARATOR . "{$fallbackLanguage}.js";
+            if (file_exists($desiredFile)) {
+                $language = $fallbackLanguage;
+            }
+        }
+
         $view->registerJsFile($this->baseUrl."/{$language}.js");
-        $js =<<<JS
-moment.locale('{$language}');
-JS;
+        $js = "moment.locale('{$language}')";
         $view->registerJs($js, View::POS_READY, 'moment-locale-'.$language);
     }
 }
+
