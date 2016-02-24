@@ -35,6 +35,10 @@ class MomentLanguageAsset extends AssetBundle
 
         $desiredFile = $sourcePath . DIRECTORY_SEPARATOR . "{$language}.js";
         if (!is_file($desiredFile)) {
+            if ($fallbackLanguage === 'en') { // en is default, there is not separate locale file for it
+                return;
+            }
+
             $desiredFile = $sourcePath . DIRECTORY_SEPARATOR . "{$fallbackLanguage}.js";
             if (file_exists($desiredFile)) {
                 $language = $fallbackLanguage;
