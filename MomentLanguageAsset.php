@@ -11,6 +11,16 @@ use yii\web\View;
  */
 class MomentLanguageAsset extends AssetBundle
 {
+    /**
+     * @inheritdoc
+     */
+    public $depends = [
+        'omnilight\assets\MomentAsset'
+    ];
+
+    /**
+     * @inheritdoc
+     */
     public $sourcePath = '@bower/moment/locale';
     /**
      * @var string|null When null, language will be equal for current locale of the application
