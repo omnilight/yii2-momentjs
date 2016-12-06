@@ -27,6 +27,17 @@ class MomentLanguageAsset extends AssetBundle
      */
     public $language = null;
 
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        /**
+         * Set sourcePath back to what it was, because bundled assets array sets it to `null`
+         */
+        $this->sourcePath = '@bower/moment/locale';
+    }
+
     public function registerAssetFiles($view)
     {
         parent::registerAssetFiles($view);
